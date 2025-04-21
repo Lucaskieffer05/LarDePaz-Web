@@ -1,8 +1,8 @@
 const URL = import.meta.env.VITE_API_URL;
-
+import { toaster } from "@/components/ui/toaster"
 import { LocalStorage } from '@app';
-import { Toast } from '@components';
 import { Messages } from '@constants/Messages';
+//import { Toast } from '@components';
 
 export const get = async (path, rq) => {
 	const params = new URLSearchParams(rq);
@@ -17,13 +17,13 @@ export const get = async (path, rq) => {
 
 	if (!response.ok) {
 		if (response.status === 403)
-			return Toast.error(Messages.Error[403]);
+			return toaster.error(Messages.Error[403]);
 		else if (response.status === 404)
-			return Toast.error(Messages.Error[404]);
+			return toaster.error(Messages.Error[404]);
 		else if (response.status >= 500)
-			return Toast.error(Messages.Error[500]);
+			return toaster.error(Messages.Error[500]);
 		else
-			return Toast.error(Messages.Error.generic);
+			return toaster.error(Messages.Error.generic);
 	}
 
 	const json = await response.json();
@@ -46,13 +46,13 @@ export const getDifferentUrl = async (url, rq) => {
 
 	if (!response.ok) {
 		if (response.status === 403)
-			return Toast.error(Messages.Error[403]);
+			return toaster.error(Messages.Error[403]);
 		else if (response.status === 404)
-			return Toast.error(Messages.Error[404]);
+			return toaster.error(Messages.Error[404]);
 		else if (response.status >= 500)
-			return Toast.error(Messages.Error[500]);
+			return toaster.error(Messages.Error[500]);
 		else
-			return Toast.error(Messages.Error.generic);
+			return toaster.error(Messages.Error.generic);
 	}
 
 	const json = await response.json();
@@ -77,13 +77,13 @@ export const post = async (path, rq, isFormData = false) => {
 
 	if (!response.ok) {
 		if (response.status === 403)
-			return Toast.error(Messages.Error[403]);
+			return toaster.error(Messages.Error[403]);
 		else if (response.status === 404)
-			return Toast.error(Messages.Error[404]);
+			return toaster.error(Messages.Error[404]);
 		else if (response.status >= 500)
-			return Toast.error(Messages.Error[500]);
+			return toaster.error(Messages.Error[500]);
 		else
-			return Toast.error(Messages.Error.generic);
+			return toaster.error(Messages.Error.generic);
 	}
 
 	const json = await response.json();
@@ -105,15 +105,15 @@ export const download = async (path, rq) => {
 		},
 	});
 
-	if (!imageResponse.ok) {
-		if (imageResponse.status === 403)
-			return Toast.error(Messages.Error[403]);
-		else if (imageResponse.status === 404)
-			return Toast.error(Messages.Error[404]);
-		else if (imageResponse.status >= 500)
-			return Toast.error(Messages.Error[500]);
+	if (!response.ok) {
+		if (response.status === 403)
+			return toaster.error(Messages.Error[403]);
+		else if (response.status === 404)
+			return toaster.error(Messages.Error[404]);
+		else if (response.status >= 500)
+			return toaster.error(Messages.Error[500]);
 		else
-			return Toast.error(Messages.Error.generic);
+			return toaster.error(Messages.Error.generic);
 	}
 
 	const imageBlob = await imageResponse.blob();
