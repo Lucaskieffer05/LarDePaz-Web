@@ -26,9 +26,11 @@ const error = (message) => {
 	toast.error(message, options);
 };
 
-export default {
+const Toast = {
 	info,
 	success,
 	warning,
 	error,
 };
+
+export default Toast;

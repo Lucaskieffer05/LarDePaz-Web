@@ -8,13 +8,12 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import { AppBar, Typography, Button } from './StyledComponents';
+import { Link } from 'react-router-dom';
 
-import { AppBar, Typography, Button } from './StyledComponents'; // Import your styles from Style.js
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({pages, settings}) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -38,11 +37,7 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar
-      color = "navbar"
-      position="static" 
-      className='navbar' 
-    >
+    <AppBar color="navbar" position="static" className="navbar">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -51,7 +46,13 @@ function ResponsiveAppBar() {
             component="a"
             href="/"
           >
-            <img width="250" height="83" src="https://lardepaz.com.ar/wp-content/uploads/2022/10/cropped-logo_lar_de_paz-1-1.png" alt="Lar de Paz" decoding="async" data-src="https://lardepaz.com.ar/wp-content/uploads/2022/10/cropped-logo_lar_de_paz-1-1.png" data-eio-rwidth="250" data-eio-rheight="83"></img>
+            <img
+              width="250"
+              height="83"
+              src="https://lardepaz.com.ar/wp-content/uploads/2022/10/cropped-logo_lar_de_paz-1-1.png"
+              alt="Lar de Paz"
+              decoding="async"
+            />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -82,45 +83,35 @@ function ResponsiveAppBar() {
               sx={{ display: { xs: 'flex', md: 'none' }, minWidth: '100%' }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                  <Typography sx={{ textAlign: 'center' }}>
+                    <Link to={page.path} style={{ textDecoration: 'none', color: 'inherit' }}>
+                      {page.name}
+                    </Link>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            <img width="250" height="83" src="https://lardepaz.com.ar/wp-content/uploads/2022/10/cropped-logo_lar_de_paz-1-1.png" alt="Lar de Paz" decoding="async" data-src="https://lardepaz.com.ar/wp-content/uploads/2022/10/cropped-logo_lar_de_paz-1-1.png" data-eio-rwidth="250" data-eio-rheight="83"></img>
-          </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, gap: 3, marginLeft: '30px' }}>
             {pages.map((page) => (
               <Button
-               sx={{ fontSize: '16px'}}
-                key={page}
+                sx={{ fontSize: '16px' }}
+                key={page.name}
                 onClick={handleCloseNavMenu}
               >
-                {page}
+                <Link to={page.path} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  {page.name}
+                </Link>
               </Button>
             ))}
           </Box>
+
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Admin Admin"/>
+                <Avatar alt="Admin Admin" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -140,8 +131,12 @@ function ResponsiveAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: 'center', fontSize: '15px' }}>{setting}</Typography>
+                <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+                  <Typography sx={{ textAlign: 'center', fontSize: '15px' }}>
+                    <Link to={setting.path} style={{ textDecoration: 'none', color: 'inherit' }}>
+                      {setting.name}
+                    </Link>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>

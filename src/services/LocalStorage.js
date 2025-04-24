@@ -11,24 +11,26 @@ const get = (key) => {
 	return value ? JSON.parse(value) : null;
 };
 
-export const setToken = (v) => set(Constants.TOKEN, v);
-export const getToken = () => get(Constants.TOKEN);
+export class LocalStorage {
+	static setToken = (v) => set(Constants.TOKEN, v);
+	static getToken = () => get(Constants.TOKEN);
 
-export const setUserId = (v) => set(Constants.USER_ID, v);
-export const getUserId = () => get(Constants.USER_ID);
+	static setUserId = (v) => set(Constants.USER_ID, v);
+	static getUserId = () => get(Constants.USER_ID);
 
-export const setUserRole = (v) => set(Constants.USER_ROLE, v);
-export const getUserRole = () => get(Constants.USER_ROLE);
+	static setUserRole = (v) => set(Constants.USER_ROLE, v);
+	static getUserRole = () => get(Constants.USER_ROLE);
 
-export const setUserName = (v) => set(Constants.USER_NAME, v);
-export const getUserName = () => get(Constants.USER_NAME);
+	static setUserName = (v) => set(Constants.USER_NAME, v);
+	static getUserName = () => get(Constants.USER_NAME);
 
-export const setUserEmail = (v) => set(Constants.USER_EMAIL, v);
-export const getUserEmail = () => get(Constants.USER_EMAIL);
+	static setUserEmail = (v) => set(Constants.USER_EMAIL, v);
+	static getUserEmail = () => get(Constants.USER_EMAIL);
 
-export const setSessionExpiration = (v) => set(Constants.SESSION_EXPIRATION, v);
-export const getSessionExpiration = () => get(Constants.SESSION_EXPIRATION);
+	static setSessionExpiration = (v) => set(Constants.SESSION_EXPIRATION, v);
+	static getSessionExpiration = () => get(Constants.SESSION_EXPIRATION);
 
-export const clearSessionData = () => {
-	secureLocalStorage.clear();
+	static clearSessionData = () => {
+		secureLocalStorage.clear();
+	};
 };
