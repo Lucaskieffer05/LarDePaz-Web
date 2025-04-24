@@ -7,54 +7,51 @@ import { SignInPage } from '@toolpad/core/SignInPage';
 import { useTheme } from '@mui/material/styles';
 import Toast from "@components/Toast/Toast";
 import { ToastContainer } from 'react-toastify';
+import { AuthContext } from '@context/AuthContext';
+import { useContext } from 'react';
 
 
-const providers = [{ id: 'credentials', name: 'Email and Password' }];
-
-
-const handleLogin = (data) => {
-    LocalStorage.setToken(data.token);
-    LocalStorage.setUserId(data.user.id);
-    LocalStorage.setUserRole(data.user.role);
-    LocalStorage.setUserName(data.user.fullName);
-    LocalStorage.setUserEmail(data.user.email);
-    LocalStorage.setSessionExpiration(data.sessionExpiration);
-}
+const providers = [{ id: 'credentials', name: 'Correo y Contraseña' }];
 
 
 export default function Login() {
-    const navigate = useNavigate();
-    const theme = useTheme();
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const theme = useTheme();
 
-    const signIn = async (provider, formData) => {
-        const Email = formData.get('email');
-        const Password = formData.get('password');
-        const form = { email: Email, password: Password };
-        API.post('Auth/Login', form)
-			.then((response) => {
-				handleLogin(response.data);
-				navigate('/');
-			})
-			.catch(() => {
-				Toast.warning("Credenciales incorrectas");
-			});
-        
-    };
+  const signIn = async (provider, formData) => {
+      const Email = formData.get('email');
+      const Password = formData.get('password');
+      const form = { email: Email, password: Password };
+      API.post('Auth/Login', form)
+      .then((response) => {
+        login(response.data);
+        navigate('/');
+        Toast.success("Bienvenido " + LocalStorage.getUserName() + "!");
+      })
+    .catch(() => {
+      Toast.warning("Credenciales incorrectas");
+    });
+      
+  };
 
-    return (
-        // preview-start
-        <>
-            <ToastContainer />
-            <AppProvider theme={theme}>
-            <SignInPage
-                signIn={signIn}
-                providers={providers}
-                slotProps={{ emailField: { autoFocus: false }, form: { noValidate: true } }}
-            />
-            </AppProvider>
-        </>
-        // preview-end
-    );
+  return (
+      // preview-start
+      <>
+          <ToastContainer />
+          <AppProvider theme={theme}>
+          <SignInPage
+              signIn={signIn}
+              providers={providers}
+              localeText={{
+                providerSignInTitle: (provider) => `Iniciar sesión con ${provider}`,
+              }}
+              slotProps={{ emailField: { autoFocus: false }, form: { noValidate: true } }}
+          />
+          </AppProvider>
+      </>
+      // preview-end
+  );
 }
 
 

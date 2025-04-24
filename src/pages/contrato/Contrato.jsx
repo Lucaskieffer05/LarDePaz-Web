@@ -10,9 +10,6 @@ import {
 export function Contrato() {
     const [value, setValue] = useState(0);
 
-
-
-
     return (
         <Box sx={{ marginY: 5 }}>
             <Box >
