@@ -7,8 +7,8 @@ export const theme = createTheme({
       main: '#6ecc72',      // Verde
     },
     navbar: {
-      main: '#dedede',
-      contrastText: '#000000' // Definido manualmente
+      main: '#d9ddcd',
+      contrastText: '#6d7578' // Definido manualmente
     },
   }
 });

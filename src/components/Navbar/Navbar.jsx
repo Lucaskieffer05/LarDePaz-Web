@@ -5,17 +5,25 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
+import PersonIcon from '@mui/icons-material/Person';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { AppBar, Typography, Button } from './StyledComponents';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '@context/AuthContext';
 
 
 
 function ResponsiveAppBar({pages, settings}) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { logout } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logout();
+    handleCloseUserMenu(); // Cierra el menú
+  };
 
   const handleOpenNavMenu = (event) => {
     if (event.currentTarget) {
@@ -111,35 +119,42 @@ function ResponsiveAppBar({pages, settings}) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Admin Admin" />
+                <PersonIcon sx={{ color: '#02a256', fontSize: '35px' }} />
               </IconButton>
             </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: 'center', fontSize: '15px' }}>
-                    <Link to={setting.path} style={{ textDecoration: 'none', color: 'inherit' }}>
-                      {setting.name}
-                    </Link>
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                keepMounted
+                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem 
+                    key={setting.name}
+                    onClick={setting.name === 'Cerrar sesión' ? handleLogout : handleCloseUserMenu}
+                  >
+                    {setting.name === 'Cerrar sesión' ? (
+                      <Typography sx={{ textAlign: 'center', fontSize: '15px' }}>
+                        {setting.name}
+                      </Typography>
+                    ) : (
+                      <Link 
+                        to={setting.path} 
+                        style={{ textDecoration: 'none', color: 'inherit' }}
+                        onClick={handleCloseUserMenu}
+                      >
+                        <Typography sx={{ textAlign: 'center', fontSize: '15px' }}>
+                          {setting.name}
+                        </Typography>
+                      </Link>
+                    )}
+                  </MenuItem>
+                ))}
+              </Menu>
           </Box>
         </Toolbar>
       </Container>

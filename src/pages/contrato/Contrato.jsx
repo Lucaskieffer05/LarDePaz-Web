@@ -12,7 +12,7 @@ export function Contrato() {
 
     return (
         <Box sx={{ marginY: 5 }}>
-            <Box >
+            <Box sx={{ display: 'flex', justifyContent: 'center', marginY: 5 }}>
                 <BottomNavigation
                     sx={{ backgroundColor: '#f5f5f5', padding: 2, borderRadius: 10 }}
                     showLabels
@@ -20,7 +20,7 @@ export function Contrato() {
                     onChange={(event, newValue) => {
                     setValue(newValue);
                     }}>
-                        <BottomNavigationAction label="Consultar Contratos" icon={<AssignmentIcon />} />
+                        <BottomNavigationAction label="Consultar Contratos" icon={<AssignmentIcon />} sx={{'& .MuiBottomNavigationAction-label': { width: '150px' }}}/>
                         <BottomNavigationAction label="Crear Contrato" icon={<NoteAddIcon />} />
                 </BottomNavigation>
             </Box>

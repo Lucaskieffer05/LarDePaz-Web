@@ -11,7 +11,7 @@ import { AuthContext } from '@context/AuthContext';
 import { useContext } from 'react';
 
 
-const providers = [{ id: 'credentials', name: 'Correo y Contraseña' }];
+const providers = [{ id: 'credentials', name: 'correo y contraseña' }];
 
 
 export default function Login() {
@@ -20,18 +20,18 @@ export default function Login() {
   const theme = useTheme();
 
   const signIn = async (provider, formData) => {
+    try {
       const Email = formData.get('email');
       const Password = formData.get('password');
       const form = { email: Email, password: Password };
-      API.post('Auth/Login', form)
-      .then((response) => {
-        login(response.data);
-        navigate('/');
-        Toast.success("Bienvenido " + LocalStorage.getUserName() + "!");
-      })
-    .catch(() => {
+      const response = await API.post('Auth/Login', form);
+      login(response.data);
+      Toast.success("Bienvenido " + LocalStorage.getUserName() + "!");
+      /* setTimeout(() => {}, 5000); */ // Espera 2 segundos antes de redirigir
+      navigate('/');
+    } catch {
       Toast.warning("Credenciales incorrectas");
-    });
+    }
       
   };
 
@@ -44,7 +44,9 @@ export default function Login() {
               signIn={signIn}
               providers={providers}
               localeText={{
-                providerSignInTitle: (provider) => `Iniciar sesión con ${provider}`,
+                providerSignInTitle: () => `Iniciar sesión`,
+                signInTitle: 'Inicio de sesión',
+                signInSubtitle: 'Ingrese su correo electrónico y contraseña para continuar',
               }}
               slotProps={{ emailField: { autoFocus: false }, form: { noValidate: true } }}
           />

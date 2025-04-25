@@ -8,6 +8,7 @@ import {
 
 export const AppBar = styled(MuiAppBar)(({ theme }) => ({
   backgroundColor: theme.palette.navbar.main,
+  boxShadow: 'none',
   padding: '10px',
   '& .MuiContainer-root': {
     maxWidth: 'none',
