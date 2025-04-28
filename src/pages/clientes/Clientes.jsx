@@ -27,6 +27,10 @@ export default function Clientes() {
     console.log(`Eliminar cliente con ID: ${id}`);
   };
 
+  const handleView = (id) => {
+    console.log(`Ver cliente con ID: ${id}`);
+  };
+
   return (
     <div>
       <NavHeader text="Clientes" />
@@ -35,7 +39,7 @@ export default function Clientes() {
         component={Link} to="/clientes/nuevo-cliente" variant="contained" startIcon={<AddIcon />}> Clientes 
       </Button>
 
-      <TableClientes clientes={clientes} handleEdit={handleEdit} handleDelete={handleDelete} />
+      <TableClientes clientes={clientes} handleEdit={handleEdit} handleDelete={handleDelete} handleView={handleView} />
 
     </div>
   );

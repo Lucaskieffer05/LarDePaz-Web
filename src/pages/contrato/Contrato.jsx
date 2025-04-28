@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import { ShowContrato } from './ShowContrato/ShowContrato';
 import NavHeader from '@components/NavHeader/NavHeader.jsx';
+import AddContrato from './AddContrato/AddContrato';
 
 export default function Contrato() {
     const [value, setValue] = useState(0);
@@ -31,7 +32,7 @@ export default function Contrato() {
                 </Box>
                 <Box sx={{ marginY: 5 }}>
                     {value === 0 && <ShowContrato />}
-                    {value === 1 && <h1>Crear Contrato</h1>}
+                    {value === 1 && <AddContrato />}
                 </Box>
             </Box>
         </>
