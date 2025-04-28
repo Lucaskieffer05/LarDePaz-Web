@@ -8,10 +8,11 @@ import Container from '@mui/material/Container';
 import PersonIcon from '@mui/icons-material/Person';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { AppBar, Typography, Button } from './StyledComponents';
+import { AppBar, Typography, Button } from './StyledNavbar';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '@context/AuthContext';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -19,6 +20,12 @@ function ResponsiveAppBar({pages, settings}) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const { logout } = useContext(AuthContext);
+
+  const location = useLocation();
+  
+  if (location.pathname === '/login') {
+    return null; // No renderiza nada en la página de login
+  }
 
   const handleLogout = () => {
     logout();
@@ -57,7 +64,7 @@ function ResponsiveAppBar({pages, settings}) {
             <img
               width="250"
               height="83"
-              src="https://lardepaz.com.ar/wp-content/uploads/2022/10/cropped-logo_lar_de_paz-1-1.png"
+              src="/src/assets/logo_lar_de_paz.png"
               alt="Lar de Paz"
               decoding="async"
             />

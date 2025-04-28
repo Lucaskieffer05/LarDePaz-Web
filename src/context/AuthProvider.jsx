@@ -3,9 +3,11 @@ import { AuthContext } from './AuthContext';
 import { LocalStorage } from '@services/LocalStorage';
 import { useNavigate } from 'react-router-dom';
 import { Roles } from '@constants/Roles';
+import LoadingSpinner from '@components/LoadingSpinner/LoadingSpinner';
 
 export function AuthProvider({ children }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isLoading, setIsLoading] = useState(true); 
     const navigate = useNavigate();
 
     const isAdmin = () => {
@@ -21,12 +23,10 @@ export function AuthProvider({ children }) {
   const verifyToken = () => {
         const token = LocalStorage.getToken();
         if (!token) return false;
-    
         try {
             if (!LocalStorage.getUserId()) return false;
 
             const sessionExpiration = new Date(LocalStorage.getSessionExpiration());
-
             if (!sessionExpiration) return false;
 
             if (new Date() > sessionExpiration) {
@@ -43,8 +43,9 @@ export function AuthProvider({ children }) {
         const checkAuth = () => {
             const isValid = verifyToken();
             setIsAuthenticated(isValid);
+            setIsLoading(false);
             if (!isValid && window.location.pathname !== '/login') {
-            navigate('/login');
+                navigate('/login', { replace: true });
             }
         };
         checkAuth();
@@ -67,9 +68,13 @@ export function AuthProvider({ children }) {
         navigate('/login');
     };
 
-  return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, isAdmin, isEmployee }}>
-      {children}
-    </AuthContext.Provider>
-  );
+    if (isLoading) {
+        return <LoadingSpinner />;
+    }
+    
+    return (
+        <AuthContext.Provider value={{ isAuthenticated, isLoading, login, logout, isAdmin, isEmployee }}>
+        {children}
+        </AuthContext.Provider>
+    );
 }
