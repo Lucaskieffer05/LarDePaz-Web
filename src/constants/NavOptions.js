@@ -2,6 +2,7 @@ export const pages = [
     { name: 'Inicio', path: '/' },
     { name: 'Contratos', path: '/contratos' },
     { name: 'Clientes', path: '/clientes' },
+    { name: 'Cobradores', path: '/cobradores' },
   ];
 export const settings = [
     { name: 'Perfil', path: '/profile' },

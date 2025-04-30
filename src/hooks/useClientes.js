@@ -14,7 +14,7 @@ export const useClientes = () => {
             setClientes(response.data.clientes);
         })
         .catch(() => {
-            Toast.error('Error al obtener los clientes');
+            Toast.error("Error al cargar los clientes");
         })
         .finally(() => {
             setLoading(false);
@@ -40,7 +40,6 @@ export const useClientes = () => {
             onSuccess();
         })
         .catch((response) => {
-            console.error(response.error);
             Toast.error(response.error?.message);
             onError();
         })

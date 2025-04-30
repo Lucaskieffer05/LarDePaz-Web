@@ -7,6 +7,7 @@ const Contrato = lazy(() => import('@pages/contrato/Contrato'));
 const Clientes = lazy(() => import('@pages/clientes/Clientes'));
 const Login = lazy(() => import('@pages/login/Login'));
 const AddCliente = lazy(() => import('@pages/clientes/AddCliente/AddCliente'));
+const Cobradores = lazy(() => import('@pages/cobradores/Cobradores'));
 
 export const publicRoutes = [
   {
@@ -31,6 +32,10 @@ export const protectedRoutes = [
   {
     path: '/clientes/nuevo-cliente',
     element: <AddCliente />,
+  },
+  {
+    path: '/cobradores',
+    element: <Cobradores />,
   },
   {
     path: '*',
